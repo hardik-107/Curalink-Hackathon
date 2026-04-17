@@ -37,7 +37,7 @@ function App() {
       if (data.success) setResult(data.data);
       else throw new Error(data.message || "Analysis failed");
     } catch (err) {
-      setError(err?.response?.data?.message || "Timeout or Connection Error.");
+      setError(err?.response?.data?.message || "AI Engine is waking up or processing. Please wait 30 seconds.");
     } finally {
       setLoading(false);
     }
@@ -117,7 +117,7 @@ function App() {
             </div>
           )}
 
-          {/* 🔥 1. ANALYSIS SECTION */}
+          {/* 1. ANALYSIS SECTION */}
           <div className="panel print-section" style={{ display: (!result || activeTab === "analysis") ? 'block' : 'none', maxHeight: '600px', overflowY: 'auto' }}>
             {!result ? (
               <div className="placeholder">
@@ -140,7 +140,7 @@ function App() {
             )}
           </div>
 
-          {/* 🔥 2. PUBLICATIONS SECTION */}
+          {/* 2. PUBLICATIONS SECTION */}
           {result && (
             <div className="panel print-section" style={{ display: activeTab === "publications" ? 'block' : 'none', maxHeight: '600px', overflowY: 'auto' }}>
               <h3 style={{ position: 'sticky', top: '-28px', backgroundColor: '#ffffff', padding: '20px 0 10px 0', zIndex: 10, margin: '-28px 0 15px 0' }}>Top Publications</h3>
@@ -160,7 +160,7 @@ function App() {
             </div>
           )}
 
-          {/* 🔥 3. CLINICAL TRIALS SECTION */}
+          {/* 3. CLINICAL TRIALS SECTION */}
           {result && (
             <div className="panel print-section" style={{ display: activeTab === "trials" ? 'block' : 'none', maxHeight: '600px', overflowY: 'auto' }}>
               <h3 style={{ position: 'sticky', top: '-28px', backgroundColor: '#ffffff', padding: '20px 0 10px 0', zIndex: 10, margin: '-28px 0 15px 0' }}>Top Clinical Trials</h3>
@@ -177,8 +177,8 @@ function App() {
                   <div className="no-print" style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', marginTop: '20px', alignItems: 'center' }}>
                     <a href={item.url} target="_blank" rel="noreferrer" style={{ color: '#000000', fontSize: '0.95em', textDecoration: 'underline', fontWeight: '700' }}>View Trial Page</a>
                     <button onClick={() => setModalContent({ type: 'source', data: item })} style={{ background: '#e11d48', border: 'none', padding: '8px 16px', borderRadius: '6px', cursor: 'pointer', color: 'white', fontSize: '0.9em', fontWeight: 'bold' }}>🔍 Expand Detail</button>
-                    {/* FIXED MAP LINK HERE */}
-                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.location)}`} target="_blank" rel="noreferrer" style={{ background: '#000000', border: 'none', padding: '8px 16px', borderRadius: '6px', cursor: 'pointer', color: 'white', fontSize: '0.9em', fontWeight: 'bold', textDecoration: 'none' }}>🗺️ Locate on Map</a>
+                    {/* STRICT FIX: DIRECT GOOGLE MAPS LINK */}
+                    <a href={`https://www.google.com/maps/search/?api=1&query={encodeURIComponent(item.location || item.title)}`} target="_blank" rel="noreferrer" style={{ background: '#000000', border: 'none', padding: '8px 16px', borderRadius: '6px', cursor: 'pointer', color: 'white', fontSize: '0.9em', fontWeight: 'bold', textDecoration: 'none' }}>🗺️ Locate on Map</a>
                   </div>
                 </div>
               ))}
@@ -199,10 +199,12 @@ function App() {
               <>
                 <h2 style={{ borderBottom: '3px solid #e11d48', paddingBottom: '15px', marginBottom: '15px' }}>{modalContent.data.title}</h2>
                 <p><strong>Source:</strong> {modalContent.data.source} · <strong>Year:</strong> {modalContent.data.year}</p>
-                {/* FIXED EXPAND CONTENT HERE (Fallback for multiple keys) */}
-                <ReactMarkdown>
-                  {formatRawText(modalContent.data.abstract_text || modalContent.data.summary || modalContent.data.description || "No detailed summary provided by this source.")}
-                </ReactMarkdown>
+                <div style={{ marginTop: '20px', color: '#334155', lineHeight: '1.6' }}>
+                  {/* STRICT FIX: MULTIPLE KEY FALLBACK FOR EXPAND DETAIL */}
+                  <ReactMarkdown>
+                    {formatRawText(modalContent.data.abstract_text || modalContent.data.summary || modalContent.data.description || "No detailed summary provided by this source.")}
+                  </ReactMarkdown>
+                </div>
               </>
             )}
           </div>
