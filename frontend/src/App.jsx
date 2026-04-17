@@ -5,7 +5,7 @@ import ReactMarkdown from "react-markdown";
 import { SearchCheck, FlaskConical, Stethoscope, AlertTriangle } from "lucide-react";
 import "./App.css";
 
-const API_URL = import.meta.env.VITE_API_URL || "const API_URL = import.meta.env.VITE_API_URL;";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const formatRawText = (text) => {
   if (!text) return "";
@@ -72,7 +72,7 @@ function App() {
             </label>
             <label>
               <span>Intent</span>
-              <input name="intent" value={form.intent} onChange={handleChange} placeholder="e.g. latest deep brain stimulation treatments" required />
+              <input name="intent" value={form.intent} onChange={handleChange} placeholder="e.g. latest deep brain stimulation" required />
             </label>
             <label>
               <span>Location</span>
@@ -146,7 +146,6 @@ function App() {
               <h3 style={{ position: 'sticky', top: '-28px', backgroundColor: '#ffffff', padding: '20px 0 10px 0', zIndex: 10, margin: '-28px 0 15px 0' }}>Top Publications</h3>
               {result.sources?.filter(s => s.source !== "ClinicalTrials.gov").map((item, i) => (
                 <div className="result-card" key={i}>
-                  {/* Title is now a clickable link! */}
                   <a href={item.url} target="_blank" rel="noreferrer" className="pdf-link" style={{ textDecoration: 'none' }}>
                     <strong style={{ fontSize: '1.1em', display: 'block', marginBottom: '8px', color: '#0f172a' }}>{item.title}</strong>
                   </a>
@@ -167,7 +166,6 @@ function App() {
               <h3 style={{ position: 'sticky', top: '-28px', backgroundColor: '#ffffff', padding: '20px 0 10px 0', zIndex: 10, margin: '-28px 0 15px 0' }}>Top Clinical Trials</h3>
               {result.sources?.filter(s => s.source === "ClinicalTrials.gov").map((item, i) => (
                 <div className="result-card" key={i}>
-                  {/* Title is now a clickable link! */}
                   <a href={item.url} target="_blank" rel="noreferrer" className="pdf-link" style={{ textDecoration: 'none' }}>
                     <strong style={{ fontSize: '1.1em', display: 'block', marginBottom: '8px', color: '#0f172a' }}>{item.title}</strong>
                   </a>
@@ -179,7 +177,8 @@ function App() {
                   <div className="no-print" style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', marginTop: '20px', alignItems: 'center' }}>
                     <a href={item.url} target="_blank" rel="noreferrer" style={{ color: '#000000', fontSize: '0.95em', textDecoration: 'underline', fontWeight: '700' }}>View Trial Page</a>
                     <button onClick={() => setModalContent({ type: 'source', data: item })} style={{ background: '#e11d48', border: 'none', padding: '8px 16px', borderRadius: '6px', cursor: 'pointer', color: 'white', fontSize: '0.9em', fontWeight: 'bold' }}>🔍 Expand Detail</button>
-                    <a href={`http://googleusercontent.com/maps.google.com/?q=${encodeURIComponent(item.location)}`} target="_blank" rel="noreferrer" style={{ background: '#000000', border: 'none', padding: '8px 16px', borderRadius: '6px', cursor: 'pointer', color: 'white', fontSize: '0.9em', fontWeight: 'bold', textDecoration: 'none' }}>🗺️ Locate on Map</a>
+                    {/* FIXED MAP LINK HERE */}
+                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.location)}`} target="_blank" rel="noreferrer" style={{ background: '#000000', border: 'none', padding: '8px 16px', borderRadius: '6px', cursor: 'pointer', color: 'white', fontSize: '0.9em', fontWeight: 'bold', textDecoration: 'none' }}>🗺️ Locate on Map</a>
                   </div>
                 </div>
               ))}
@@ -200,7 +199,10 @@ function App() {
               <>
                 <h2 style={{ borderBottom: '3px solid #e11d48', paddingBottom: '15px', marginBottom: '15px' }}>{modalContent.data.title}</h2>
                 <p><strong>Source:</strong> {modalContent.data.source} · <strong>Year:</strong> {modalContent.data.year}</p>
-                {modalContent.data.abstract_text && <ReactMarkdown>{formatRawText(modalContent.data.abstract_text)}</ReactMarkdown>}
+                {/* FIXED EXPAND CONTENT HERE (Fallback for multiple keys) */}
+                <ReactMarkdown>
+                  {formatRawText(modalContent.data.abstract_text || modalContent.data.summary || modalContent.data.description || "No detailed summary provided by this source.")}
+                </ReactMarkdown>
               </>
             )}
           </div>
