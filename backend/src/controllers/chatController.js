@@ -13,7 +13,6 @@ const processChatMessage = async (req, res) => {
         })).reverse();
 
         // 2. Prepare Payload for FastAPI (app.py)
-        // We append the frontend 'message' to 'additionalQuery' so the LLM gets the full context
         const combinedQuery = `${additionalQuery || ''} Follow-up: ${message || ''}`.trim();
 
         const pythonPayload = {
@@ -26,10 +25,14 @@ const processChatMessage = async (req, res) => {
             history
         };
 
-        console.log(`[INFO] Sending data to Python AI Engine for ${patientName}...`);
+        // --- DHYAN SE DEKH BHAI: ASLI FIX YAHAN HAI ---
+        // Agar Render par PYTHON_API_URL set hai toh wo lega, nahi toh local (sirf dev ke liye)
+        const PYTHON_URL = process.env.PYTHON_API_URL || "http://127.0.0.1:8000";
+        
+        console.log(`[INFO] Sending data to Python AI Engine at: ${PYTHON_URL}/generate for ${patientName}...`);
 
-        // 3. Call the Python AI Engine with a massive 10-minute timeout for Llama-3.1
-        const pythonResponse = await axios.post('http://127.0.0.1:8000/generate', pythonPayload, {
+        // 3. Call the Python AI Engine with a massive 10-minute timeout
+        const pythonResponse = await axios.post(`${PYTHON_URL}/generate`, pythonPayload, {
             timeout: 600000 // 10 minutes
         });
 
@@ -55,9 +58,12 @@ const processChatMessage = async (req, res) => {
 
     } catch (error) {
         console.error("[ERROR] Backend processing failed:", error.message);
+        
+        // Error handling for judges/users
         res.status(500).json({ 
             success: false, 
-            message: "AI Engine processing failed or timed out. Ensure app.py and Ollama are running." 
+            message: "AI Engine is currently waking up or processing. Please wait 30 seconds and try again.",
+            errorDetails: error.message 
         });
     }
 };
