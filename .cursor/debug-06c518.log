@@ -1,0 +1,2 @@
+{"sessionId":"06c518","runId":"pre-fix","hypothesisId":"H1-H2","location":"frontend/src/App.jsx:handleSubmit","message":"Submitting chat request","data":{"apiUrl":"http://localhost:5000","hasConversationId":false,"diseaseLen":18,"messageLen":16},"timestamp":1776271205271}
+{"sessionId":"06c518","runId":"pre-fix","hypothesisId":"H1-H2-H3-H4-H5","location":"frontend/src/App.jsx:handleSubmit:catch","message":"Chat request failed","data":{"hasResponse":false,"status":null,"code":"ERR_NETWORK","errorMessage":"Network Error","backendMessage":""},"timestamp":1776271207595}

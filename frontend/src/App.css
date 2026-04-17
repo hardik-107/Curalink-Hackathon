@@ -1,0 +1,340 @@
+/* App.css - Premium Enterprise Bold Theme */
+
+/* Force pure white background globally */
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 2rem 1.2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 🔴⚫ Equal Massive Solid Ambient Circles */
+.ambient {
+  position: fixed;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ambient-a {
+  top: -350px;
+  left: -350px;
+  background: #e11d48; /* Solid Red */
+}
+
+.ambient-b {
+  right: -350px;
+  bottom: -350px;
+  background: #000000; /* Solid Black */
+}
+
+/* Header */
+.hero {
+  max-width: 1200px;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+/* Layout Grids */
+.grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.02fr 1fr;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 10;
+  align-items: start;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+/* Panels */
+.panel {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08); /* Float effect */
+}
+
+.panel h2,
+.panel h3 {
+  margin-top: 0;
+  color: #000000;
+}
+
+/* Typography for labels */
+label span {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #000000;
+}
+
+/* 🌬️ Clean, Airy Input Fields */
+input,
+textarea,
+select {
+  width: 100%;
+  border-radius: 8px;
+  border: 1.5px solid #e2e8f0; /* Soft, subtle gray border */
+  background: #f8fafc; /* Ultra-light clean gray */
+  color: #0f172a; /* Dark text for crisp readability */
+  font: inherit;
+  padding: 12px;
+  transition: all 0.2s ease;
+  box-sizing: border-box; 
+}
+
+/* Elegant placeholder color */
+input::placeholder,
+textarea::placeholder {
+  color: #94a3b8; 
+}
+
+/* 🔴 Signature Red Glow on Focus */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #e11d48; /* Red border matching the circle */
+  background: #ffffff; /* Turns pure white on focus */
+  box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.15); /* Soft red shadow */
+}
+
+.message-field {
+  display: block;
+  margin-top: 1.5rem;
+}
+
+/* Bold Primary Button */
+button[type="submit"] {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: #0f172a; /* Deep slate instead of pure black */
+  color: white;
+  border: 0;
+  font-weight: 800;
+  font-size: 1.1em;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 100%;
+  transition: background 0.2s, transform 0.1s;
+}
+
+button[type="submit"]:hover {
+  background: #e11d48; /* Red hover */
+  transform: translateY(-2px);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.error {
+  color: #e11d48; 
+  margin-top: 0.8rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Output Data Styles */
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.stats div {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #000000;
+  background-color: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+}
+
+.placeholder {
+  min-height: 250px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: #94a3b8;
+}
+
+.markdown {
+  overflow: auto;
+  line-height: 1.7;
+  color: #334155;
+}
+
+.markdown h2, .markdown h3 {
+  color: #000000;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 6px;
+  margin-top: 1.5em;
+}
+
+/* Cards for Trials and Papers */
+.result-card {
+  display: block;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.result-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+  border-color: #000000;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .field-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 🖨️ Premium PDF / Print Styles */
+@media print {
+  body, html, #root, .page {
+    background-color: white !important;
+    color: black !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Hide ONLY background ambient circles and interactive buttons */
+  .ambient, .no-print, button {
+    display: none !important;
+  }
+
+  /* 🔥 Restore the Hero Header for a branded look */
+  .hero {
+    display: block !important;
+    text-align: center !important;
+    padding-bottom: 20px !important;
+    margin-bottom: 30px !important;
+    border-bottom: 3px solid #e11d48 !important; /* Red underline for brand */
+  }
+  .hero p {
+    color: #000000 !important;
+  }
+
+  .grid {
+    display: block !important;
+  }
+
+  /* Show all sections */
+  .print-section {
+    display: block !important; 
+    max-height: none !important; 
+    overflow: visible !important;
+    margin-bottom: 30px !important;
+    page-break-inside: auto;
+  }
+
+  /* Restore Borders to make it look like a structured dashboard */
+  .form-panel {
+    display: block !important;
+    box-shadow: none !important;
+    border: 2px solid #cbd5e1 !important; /* Nice grey border */
+    border-radius: 12px !important;
+    padding: 25px !important;
+    margin-bottom: 30px !important;
+  }
+
+  .form-panel h2 {
+    border-bottom: 2px solid #000;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+  }
+
+  .field-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 15px !important;
+  }
+
+  .form-panel label span {
+    color: #64748b !important;
+    font-size: 0.85rem !important;
+    text-transform: uppercase;
+  }
+
+  .form-panel input, .form-panel textarea, .form-panel select {
+    border: none !important;
+    background: transparent !important;
+    color: black !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-weight: bold !important;
+    font-size: 1.1rem !important;
+    -webkit-appearance: none !important;
+  }
+
+  .panel {
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 12px !important;
+    box-shadow: none !important;
+    padding: 25px !important;
+    margin-bottom: 30px !important;
+    width: 100% !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .result-card {
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 8px !important;
+    padding: 15px !important;
+    margin-bottom: 15px !important;
+    page-break-inside: avoid;
+  }
+
+  /* 🔥 Ensure Links look clickable in the PDF */
+  .pdf-link strong {
+    color: #2563eb !important; /* Medical Blue color for links */
+    text-decoration: underline !important;
+  }
+
+  .markdown {
+    color: black !important;
+    font-size: 12pt;
+    line-height: 1.6;
+  }
+}
