@@ -462,21 +462,13 @@ async def generate_llm_report(
     system_plus_user_prompt: str,
     citation_list: List[str],
 ) -> str:
-    try:
-        chat_completion = await groq_client.chat.completions.create(
-            messages=[
-                {
-                    "role": "user",
-                    "content": system_plus_user_prompt,
-                }
-            ],
-            model="llama-3.1-8b-instant",
-            temperature=0.2,
-        )
-        return chat_completion.choices[0].message.content
-    except Exception as e:
-        print(f"[ERROR] Groq API Failed: {str(e)}")
-        raise e
+   
+    chat_completion = await groq_client.chat.completions.create(
+        messages=[{"role": "user", "content": system_plus_user_prompt}],
+        model="llama-3.1-8b-instant",
+        temperature=0.2,
+    )
+    return chat_completion.choices[0].message.content
 
 def build_fallback_report(
     patient_name: str,
